@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import About from "./AboutComponent";
 import Directory from "./DirectoryComponent";
 import CampsiteInfo from "./CampsiteInfoComponent";
 import Header from "./HeaderComponent";
@@ -50,6 +51,7 @@ class Main extends Component {
                 <Header />
                 <Switch>
                     <Route path='/home' component={HomePage} />
+                    <Route exact path='/aboutus' render={() => <About partners={this.state.partners}/>} />
                     <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites}/>}/>
                     {/* Colon states that what follows the forward slash will be a parameter & put that inside property campsiteId which is stored 
                     as property in params property in match object. Match is then passed to component {CampsiteWithId} as a prop automatically */}
