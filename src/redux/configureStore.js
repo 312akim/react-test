@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from "redux";    //Requires a single reducer as an argument. Combine reducers if > 1
+import { createStore, combineReducers, applyMiddleware } from "redux";    //Requires a single reducer as an argument. Combine reducers if > 1
 import { Campsites } from "./campsites";
 import { Comments } from "./comments";
 import { Partners } from "./partners";
