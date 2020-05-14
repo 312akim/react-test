@@ -91,7 +91,7 @@ class CommentForm extends Component {
                                     Comment
                                 </Label>
                                 <Col md={10}>
-                                    <Control.text
+                                    <Control.textarea
                                         model=".comment"
                                         id="comment"
                                         name="comment"
