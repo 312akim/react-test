@@ -10,6 +10,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { actions } from "react-redux-form";
 import { postComment, fetchCampsites, fetchComments, fetchPromotions } from "../redux/ActionCreators";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const mapStateToProps = state => {
     return {
@@ -71,17 +72,21 @@ class Main extends Component {
         return (
             <div>
                 <Header />
-                    <Switch>
-                        <Route path='/home' component={HomePage} />
-                        <Route exact path='/aboutus' render={() => <About partners={this.props.partners}/>} />
-                        <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites}/>}/>
-                        {/* Colon states that what follows the forward slash will be a parameter & put that inside property campsiteId which is stored 
-                        as property in params property in match object. Match is then passed to component {CampsiteWithId} as a prop automatically */}
-                        <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-                        <Route exact path='/contactus' render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-                        {/* Redirect acts as a catch-all or default */}
-                        <Redirect to='/home' />
-                    </Switch>
+                    <TransitionGroup>
+                        <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+                            <Switch>
+                                <Route path='/home' component={HomePage} />
+                                <Route exact path='/aboutus' render={() => <About partners={this.props.partners}/>} />
+                                <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites}/>}/>
+                                {/* Colon states that what follows the forward slash will be a parameter & put that inside property campsiteId which is stored 
+                                as property in params property in match object. Match is then passed to component {CampsiteWithId} as a prop automatically */}
+                                <Route path='/directory/:campsiteId' component={CampsiteWithId} />
+                                <Route exact path='/contactus' render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                                {/* Redirect acts as a catch-all or default */}
+                                <Redirect to='/home' />
+                            </Switch>
+                        </CSSTransition>
+                    </TransitionGroup>
                 <Footer />
             </div>
         );
