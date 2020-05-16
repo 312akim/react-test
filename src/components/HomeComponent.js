@@ -3,6 +3,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 import { FadeTransform } from "react-animation-components";
+import { motion } from "framer-motion";
 
 
 function RenderCard({item, isLoading, errMess}) {
@@ -18,13 +19,20 @@ function RenderCard({item, isLoading, errMess}) {
             transformProps={{
                 exitTransform: "scale(0.5) translateY(50%)"
             }}>
-            <Card>
-                <CardImg src={baseUrl + item.image} alt={item.name} />
-                <CardBody>
-                    <CardTitle>{item.name}</CardTitle>
-                    <CardText>{item.description}</CardText>
-                </CardBody>
-            </Card>
+            <motion.div 
+            whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.5},
+            }}
+            >
+                <Card>
+                    <CardImg src={baseUrl + item.image} alt={item.name} />
+                    <CardBody>
+                        <CardTitle>{item.name}</CardTitle>
+                        <CardText>{item.description}</CardText>
+                    </CardBody>
+                </Card>
+            </motion.div>
         </FadeTransform>
     );
 }
@@ -48,7 +56,11 @@ function Home(props) {
                     />
                 </div>
                 <div className="col-md m-1">
-                    <RenderCard item={props.partner} />
+                    <RenderCard 
+                        item={props.partners} 
+                        isLoading={props.partnersLoading}
+                        errMess={props.partnersErrMess}
+                    />
                 </div>
             </div>
         </div>
